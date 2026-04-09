@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="ApartmentsRentService.Domain/ApartmentsRentService.Domain.csproj" />
+  <Project Path="ApartmentsRentService.ValueObjects/ApartmentsRentService.ValueObjects.csproj" />
+</Solution>
