@@ -3,7 +3,7 @@ using ApartmentsRentService.ValueObjects.Validators;
 
 namespace ApartmentsRentService.ValueObjects;
 
-public sealed class Email : ValueObject<string>
+public class Email : ValueObject<string>
 {
     public Email(string value)
         : base(new EmailValidator(), Normalize(value))

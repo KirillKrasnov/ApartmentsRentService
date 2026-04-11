@@ -2,7 +2,7 @@
 using ApartmentsRentService.ValueObjects.Exceptions;
 namespace ApartmentsRentService.ValueObjects.Validators;
 
-public sealed class EmailValidator : IValidator<string>
+public class EmailValidator : IValidator<string>
 { 
     public void Validate(string value)
     {

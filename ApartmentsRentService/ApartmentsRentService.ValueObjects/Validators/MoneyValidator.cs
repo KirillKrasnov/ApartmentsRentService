@@ -2,7 +2,7 @@
 using ApartmentsRentService.ValueObjects.Exceptions;
 namespace ApartmentsRentService.ValueObjects.Validators;
 
-public sealed class MoneyValidator : IValidator<string>
+public class MoneyValidator : IValidator<decimal>
 {
     public void Validate(decimal value)
     {
