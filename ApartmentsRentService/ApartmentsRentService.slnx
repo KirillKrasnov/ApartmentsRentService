@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="ApartmentsRentService.Domain/ApartmentsRentService.Domain.csproj" Id="8848f0a5-1345-4504-84a2-6425a32bc1b7" />
+  <Project Path="ApartmentsRentService.ValueObjects/ApartmentsRentService.ValueObjects.csproj" Id="f18b9316-23fb-4ca3-b4d3-0815e405365e" />
+</Solution>
