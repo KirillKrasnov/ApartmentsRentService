@@ -7,11 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Entities\" />
-    <Folder Include="Exceptions\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\ApartmentsRentService.ValueObjects\ApartmentsRentService.ValueObjects.csproj" />
   </ItemGroup>
 

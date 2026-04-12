@@ -1,6 +1,6 @@
 ﻿namespace ApartmentsRentService.Domain.Enums;
 
-public enum ApartmentsStatus
+public enum BookingStatus
 {
     Pending, 
     Approved,
