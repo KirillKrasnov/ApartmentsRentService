@@ -11,10 +11,13 @@ public class DateRange
     {
         if (startDate > endDate)
             throw new InvalidDateRangeException();
+
+        StartDate = startDate;
+        EndDate = endDate;
     }
 
     public bool Includes(DateTime value) 
-        => value >= StartDate && EndDate <= value;
+        => value >= StartDate && value <= EndDate;
 
     public bool Overlaps(DateRange other) 
         => StartDate < other.EndDate && other.StartDate < EndDate;

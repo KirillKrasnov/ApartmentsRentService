@@ -5,15 +5,15 @@ using ApartmentsRentService.ValueObjects.Exceptions;
 namespace ApartmentsRentService.Domain.Entities;
 
 
-public class Landlord
-{ 
+public class Tenant
+{
     public int Id { get; }
     public string Name { get; private set; }
 
     public Email Email { get; private set; }
 
 
-    public Landlord(int id, string name, Email email)
+    public Tenant(int id, string name, Email email)
     {
 
         if (id <= 0)
