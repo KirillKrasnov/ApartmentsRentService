@@ -1,5 +1,6 @@
 <Solution>
   <Project Path="ApartmentsRentService.Domain.Repositories.Abstractions/ApartmentsRentService.Domain.Repositories.Abstractions.csproj" Id="2abbe33b-caef-457c-a29e-75d901d776f1" />
   <Project Path="ApartmentsRentService.Domain/ApartmentsRentService.Domain.csproj" Id="8848f0a5-1345-4504-84a2-6425a32bc1b7" />
+  <Project Path="ApartmentsRentService.DomainApp/ApartmentsRentService.DomainApp.csproj" Id="e537a339-3834-4b94-8254-7e55523a5a2c" />
   <Project Path="ApartmentsRentService.ValueObjects/ApartmentsRentService.ValueObjects.csproj" Id="f18b9316-23fb-4ca3-b4d3-0815e405365e" />
 </Solution>
