@@ -4,8 +4,8 @@ namespace ApartmentsRentService.ValueObjects;
 
 public class DateRange 
 {
-    DateTime StartDate { get; }
-    DateTime EndDate { get; }
+    public DateTime StartDate { get; }
+    public DateTime EndDate { get; }
 
     public DateRange(DateTime startDate, DateTime endDate)
     {
