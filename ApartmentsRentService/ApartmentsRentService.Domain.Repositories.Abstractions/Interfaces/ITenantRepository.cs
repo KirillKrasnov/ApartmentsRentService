@@ -1,11 +1,9 @@
 ﻿using ApartmentsRentService.Domain.Entities;
+using ApartmentsRentService.Domain.Repositories.Abstractions.Base;
 
-namespace ApartmentsRentService.Domain.Repositories.Abstractions;
+namespace ApartmentsRentService.Domain.Repositories.Abstractions.Interfaces;
 
-public interface ITenantRepository
+public interface ITenantRepository : IRepository<Tenant, Guid>
 {
-    Task<Tenant?> GetByIdAsync(int id);
-    Task AddAsync(Tenant tenant);
-    Task UpdateAsync(Tenant tenant);
-    Task DeleteAsync(int id);
+    Task<Tenant?> GetByEmailAsync(string email, CancellationToken cancellationToken);
 }

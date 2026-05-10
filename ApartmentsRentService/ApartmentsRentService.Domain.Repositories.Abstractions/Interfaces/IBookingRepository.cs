@@ -1,11 +1,11 @@
 ﻿using ApartmentsRentService.Domain.Entities;
+using ApartmentsRentService.Domain.Repositories.Abstractions.Base;
 
-namespace ApartmentsRentService.Domain.Repositories.Abstractions;
+namespace ApartmentsRentService.Domain.Repositories.Abstractions.Interfaces;
 
-public interface IBookingRepository
+public interface IBookingRepository : IRepository<Booking, Guid>
 {
-    Task<Booking?> GetByIdAsync(int id);
-    Task AddAsync(Booking booking);
-    Task UpdateAsync(Booking booking);
-    Task DeleteAsync(int id);
+    Task<IEnumerable<Booking>> GetByTenantIdAsync(Guid tenantId, CancellationToken cancellationToken);
+
+    Task<IEnumerable<Booking>> GetByApartmentIdAsync(Guid apartmentId, CancellationToken cancellationToken);
 }

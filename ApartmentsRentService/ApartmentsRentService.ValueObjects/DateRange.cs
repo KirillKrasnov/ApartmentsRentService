@@ -10,7 +10,7 @@ public class DateRange
     public DateRange(DateTime startDate, DateTime endDate)
     {
         if (startDate > endDate)
-            throw new InvalidDateRangeException();
+            throw new InvalidDateRangeException(startDate, endDate);
 
         StartDate = startDate;
         EndDate = endDate;

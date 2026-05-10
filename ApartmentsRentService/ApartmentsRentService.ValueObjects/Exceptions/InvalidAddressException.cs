@@ -2,7 +2,7 @@
 
 public class InvalidAddressException : ValueObjectException
 {
-    public InvalidAddressException() : base("Адрес не должен быть пустой") { }
+    public InvalidAddressException(string address) : base($"Адрес {address} некорректен") { }
 }
 
 

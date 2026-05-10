@@ -2,6 +2,6 @@
 
 public class InvalidDateRangeException : ValueObjectException
 {
-    public InvalidDateRangeException() : base("Дата начала аренды должна быть раньше даты окончания") { }
+    public InvalidDateRangeException(DateTime startDate, DateTime endDate)
+        : base($"Дата начала {startDate} должна быть раньше даты окончания {endDate}") {}
 }
-

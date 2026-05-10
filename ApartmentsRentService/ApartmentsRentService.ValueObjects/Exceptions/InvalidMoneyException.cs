@@ -2,6 +2,6 @@
 
 public class InvalidMoneyException : ValueObjectException
 {
-    public InvalidMoneyException() : base("Сумма не может быть меньше нуля") { }
+    public InvalidMoneyException(decimal amount) : base($"Сумма {amount} не может быть отрицательной") { }
 }
 

@@ -3,7 +3,7 @@
 public class BookingCannotBeApprovedException : DomainException
 {
     public BookingCannotBeApprovedException()
-        : base("Можно подтвердить только бронь со статусом Pending (В ожидании)")
+        : base("Невозможно подтвердить бронирование, так как его статус не Pending")
     {
     }
 }

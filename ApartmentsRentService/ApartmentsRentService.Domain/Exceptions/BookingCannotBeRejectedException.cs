@@ -3,7 +3,7 @@
 public class BookingCannotBeRejectedException : DomainException
 {
     public BookingCannotBeRejectedException()
-        : base("Можно отклонить только бронь со статусом Pending (В ожидании)")
+        : base("Невозможно отклонить бронирование, так как его статус не Pending")
     {
     }
 }

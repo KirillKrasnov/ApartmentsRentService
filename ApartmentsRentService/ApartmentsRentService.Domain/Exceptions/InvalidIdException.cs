@@ -3,7 +3,7 @@
 
 public class InvalidIdException : DomainException
 {
-    public InvalidIdException() : base("ID должен быть > 0.")
+    public InvalidIdException() : base("Идентификатор сущности не может быть пустым")
     {
 
     }

@@ -2,6 +2,6 @@
 
 public class InvalidEmailException : ValueObjectException
 { 
-    public InvalidEmailException() : base("Некорректный Email") { }
+    public InvalidEmailException(string email) : base($"Email {email} имеет некорректный формат") { }
 }
 

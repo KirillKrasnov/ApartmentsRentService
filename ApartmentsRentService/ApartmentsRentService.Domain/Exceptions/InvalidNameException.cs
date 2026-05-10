@@ -3,7 +3,7 @@
 
 public class InvalidNameException : DomainException
 {
-    public InvalidNameException() : base ("Имя не может быть пустым")
+    public InvalidNameException(string name) : base ($"Имя {name} некорректно")
     {
 
     }

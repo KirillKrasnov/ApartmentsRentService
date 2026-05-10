@@ -28,4 +28,9 @@ public abstract class ValueObject<T> : IEquatable<ValueObject<T>>
 
     public override int GetHashCode()
         => HashCode.Combine(GetType(), Value);
+
+    public override string ToString()
+    {
+        return Value?.ToString() ?? string.Empty;
+    }
 }

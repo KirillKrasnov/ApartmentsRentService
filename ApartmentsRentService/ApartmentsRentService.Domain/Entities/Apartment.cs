@@ -1,54 +1,93 @@
-﻿using ApartmentsRentService.Domain.Exceptions;
+﻿using ApartmentsRentService.Domain.Entities.Base;
+using ApartmentsRentService.Domain.Exceptions;
 using ApartmentsRentService.ValueObjects;
 
 namespace ApartmentsRentService.Domain.Entities;
 
-public class Apartment
-{ 
-    public int Id { get; }
-    public string Title { get; private set; }
-    public string Description { get; private set; }
+public class Apartment : Entity<Guid>
+{
+    public ApartmentTitle Title { get; private set; }
+
+    public ApartmentDescription Description { get; private set; }
 
     public Money PricePerNight { get; private set; }
+
     public Address Address { get; private set; }
 
-    public int LandlordId { get; }
+    public Landlord Landlord { get; private set; }
 
-    public Apartment(int id, string title, string description, Money price, Address address, int landlordid)
+    protected Apartment()
     {
-        if (id <= 0)
+    }
+
+    protected Apartment(
+        Guid id,
+        ApartmentTitle title,
+        ApartmentDescription description,
+        Money price,
+        Address address,
+        Landlord landlord)
+        : base(id)
+    {
+        if (id == Guid.Empty)
             throw new InvalidIdException();
 
-        if (string.IsNullOrWhiteSpace(title))
-            throw new InvalidTitleException("Заголовок не может быть пустым");
+        Title = title
+            ?? throw new ArgumentNullException(nameof(title));
 
-        if (landlordid <= 0)
-            throw new InvalidIdException();
+        Description = description
+            ?? throw new ArgumentNullException(nameof(description));
 
-        Id = id;
-        Title = title;
-        Description = description;
-        PricePerNight = price;
-        Address = address;
-        LandlordId = landlordid;
+        PricePerNight = price
+            ?? throw new ArgumentNullException(nameof(price));
+
+        Address = address
+            ?? throw new ArgumentNullException(nameof(address));
+
+        Landlord = landlord
+            ?? throw new ArgumentNullException(nameof(landlord));
     }
 
-    public void ChangeTitle(string title)
+    public Apartment(ApartmentTitle title, ApartmentDescription description, 
+        Money price, Address address, Landlord landlord) : base(Guid.NewGuid())
     {
-        if (string.IsNullOrWhiteSpace(title))
-            throw new InvalidTitleException("Заголовок не может быть пустым");
-        Title = title.Trim();
+        Title = title
+            ?? throw new ArgumentNullException(nameof(title));
+
+        Description = description
+            ?? throw new ArgumentNullException(nameof(description));
+
+        PricePerNight = price
+            ?? throw new ArgumentNullException(nameof(price));
+
+        Address = address
+            ?? throw new ArgumentNullException(nameof(address));
+
+        Landlord = landlord
+            ?? throw new ArgumentNullException(nameof(landlord));
     }
 
-    public void ChangeDescription(string description)
+    public void ChangePrice(Money price)
     {
-        Description = description.Trim();
+        PricePerNight = price
+            ?? throw new ArgumentNullException(nameof(price));
     }
 
-    public void ChangePrice(Money price) => PricePerNight = price;
+    public void ChangeAddress(Address address)
+    {
+        Address = address
+            ?? throw new ArgumentNullException(nameof(address));
+    }
 
-    public void ChangeAddress(Address address) => Address = address;
+    public void ChangeTitle(ApartmentTitle title)
+    {
+        Title = title
+            ?? throw new ArgumentNullException(nameof(title));
+    }
 
-
+    public void ChangeDescription(ApartmentDescription description)
+    {
+        Description = description
+            ?? throw new ArgumentNullException(nameof(description));
+    }
 }
-

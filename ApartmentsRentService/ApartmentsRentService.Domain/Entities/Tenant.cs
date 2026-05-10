@@ -1,42 +1,59 @@
-﻿using ApartmentsRentService.Domain.Exceptions;
+﻿using ApartmentsRentService.Domain.Entities.Base;
+using ApartmentsRentService.Domain.Exceptions;
 using ApartmentsRentService.ValueObjects;
-using ApartmentsRentService.ValueObjects.Exceptions;
 
 namespace ApartmentsRentService.Domain.Entities;
 
-
-public class Tenant
+public class Tenant : Entity<Guid>
 {
-    public int Id { get; }
     public string Name { get; private set; }
 
     public Email Email { get; private set; }
 
-
-    public Tenant(int id, string name, Email email)
+    protected Tenant()
     {
+    }
 
-        if (id <= 0)
+    protected Tenant(
+        Guid id,
+        string name,
+        Email email)
+        : base(id)
+    {
+        if (id == Guid.Empty)
             throw new InvalidIdException();
 
-        if (string.IsNullOrWhiteSpace(name)) throw new InvalidNameException();
+        if (string.IsNullOrWhiteSpace(name))
+            throw new InvalidNameException(name);
 
-        Id = id;
         Name = name.Trim();
-        Email = email ?? throw new InvalidEmailException();
+
+        Email = email
+            ?? throw new ArgumentNullException(nameof(email));
+    }
+
+    public Tenant(string name, Email email) : base(Guid.NewGuid())
+    {
+        if (string.IsNullOrWhiteSpace(name))
+            throw new InvalidNameException(name);
+
+        Name = name.Trim();
+
+        Email = email
+            ?? throw new ArgumentNullException(nameof(email));
     }
 
     public void ChangeName(string name)
     {
         if (string.IsNullOrWhiteSpace(name))
-            throw new InvalidNameException();
+            throw new InvalidNameException(name);
+
         Name = name.Trim();
     }
 
     public void ChangeEmail(Email email)
     {
-        Email = email ?? throw new InvalidEmailException();
+        Email = email
+            ?? throw new ArgumentNullException(nameof(email));
     }
 }
-
-

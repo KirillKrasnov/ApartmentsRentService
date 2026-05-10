@@ -10,18 +10,13 @@ public class Email : ValueObject<string>
     {
     }
 
-    public string GetDomain()
-    {
-        return Value.Split('@')[1];
-    }
-
-    public bool IsFromDomain(string domain)
-    {
-        return GetDomain().Equals(domain, StringComparison.OrdinalIgnoreCase);
-    }
-
     private static string Normalize(string value)
     {
         return value.Trim().ToLowerInvariant();
+    }
+
+    public override string ToString()
+    {
+        return Value;
     }
 }
