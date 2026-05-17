@@ -1,15 +1,18 @@
 ﻿using ApartmentsRentService.ValueObjects.Base;
+using ApartmentsRentService.ValueObjects.Exceptions.ApartmentsTitleExceptions;
 
 namespace ApartmentsRentService.ValueObjects.Validators;
 
 public class ApartmentTitleValidator : IValidator<string>
 {
+    public static int MAX_LENGTH => 100;
+
     public void Validate(string value)
     {
         if (string.IsNullOrWhiteSpace(value))
-            throw new ArgumentException("Заголовок квартиры не может быть пустым");
+            throw new ApartmentTitleNullOrWhiteSpaceException();
 
-        if (value.Length > 100)
-            throw new ArgumentException("Слишком длинный заголовок квартиры");
+        if (value.Length > MAX_LENGTH)
+            throw new ApartmentTitleTooLongException(value, MAX_LENGTH);
     }
 }

@@ -49,44 +49,54 @@ public class Apartment : Entity<Guid>
     }
 
     public Apartment(ApartmentTitle title, ApartmentDescription description, 
-        Money price, Address address, Landlord landlord) : base(Guid.NewGuid())
+        Money price, Address address, Landlord landlord)
+        : this(Guid.NewGuid(), title, description, price, address, landlord)
+    {}
+
+    public void ChangePrice(Landlord landlord, Money price)
     {
-        Title = title
-            ?? throw new ArgumentNullException(nameof(title));
+        if (landlord == null)
+            throw new ArgumentNullException(nameof(landlord));
 
-        Description = description
-            ?? throw new ArgumentNullException(nameof(description));
+        if (landlord.Id != Landlord.Id)
+            throw new LandlordEditApartmentException(this, landlord);
 
-        PricePerNight = price
-            ?? throw new ArgumentNullException(nameof(price));
-
-        Address = address
-            ?? throw new ArgumentNullException(nameof(address));
-
-        Landlord = landlord
-            ?? throw new ArgumentNullException(nameof(landlord));
-    }
-
-    public void ChangePrice(Money price)
-    {
         PricePerNight = price
             ?? throw new ArgumentNullException(nameof(price));
     }
 
-    public void ChangeAddress(Address address)
+    public void ChangeAddress(Landlord landlord, Address address)
     {
+        if (landlord == null)
+            throw new ArgumentNullException(nameof(landlord));
+
+        if (landlord.Id != Landlord.Id)
+            throw new LandlordEditApartmentException(this, landlord);
+
         Address = address
             ?? throw new ArgumentNullException(nameof(address));
     }
 
-    public void ChangeTitle(ApartmentTitle title)
+    public void ChangeTitle(Landlord landlord, ApartmentTitle title)
     {
+        if (landlord == null)
+            throw new ArgumentNullException(nameof(landlord));
+
+        if (landlord.Id != Landlord.Id)
+            throw new LandlordEditApartmentException(this, landlord);
+
         Title = title
             ?? throw new ArgumentNullException(nameof(title));
     }
 
-    public void ChangeDescription(ApartmentDescription description)
+    public void ChangeDescription(Landlord landlord, ApartmentDescription description)
     {
+        if (landlord == null)
+            throw new ArgumentNullException(nameof(landlord));
+
+        if (landlord.Id != Landlord.Id)
+            throw new LandlordEditApartmentException(this, landlord);
+
         Description = description
             ?? throw new ArgumentNullException(nameof(description));
     }

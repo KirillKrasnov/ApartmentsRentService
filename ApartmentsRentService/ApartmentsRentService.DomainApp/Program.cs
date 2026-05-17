@@ -1,4 +1,6 @@
 ﻿using ApartmentsRentService.Domain.Entities;
+using ApartmentsRentService.Domain.Enums;
+using ApartmentsRentService.Domain.Exceptions;
 using ApartmentsRentService.ValueObjects;
 
 Console.WriteLine("=== Демонстрация доменной модели ===\n");
@@ -6,20 +8,20 @@ Console.WriteLine("=== Демонстрация доменной модели ==
 
 // Арендодатель
 var landlord = new Landlord(
-    "Васян",
+    new PersonName("Васян"),
     new Email("Vasyan@gmail.com"));
 
 Console.WriteLine(
-    $"Создан арендодатель: {landlord.Name}");
+    $"Создан арендодатель: {landlord.Name.Value}");
 
 
 // Арендатор
 var tenant = new Tenant(
-    "Ванек",
+    new PersonName("Ванек"),
     new Email("vanek@gmail.com"));
 
 Console.WriteLine(
-    $"Создан арендатор: {tenant.Name}");
+    $"Создан арендатор: {tenant.Name.Value}");
 
 
 // Квартира
@@ -47,7 +49,8 @@ Console.WriteLine(
 var booking = new Booking(
     apartment,
     tenant,
-    dateRange);
+    dateRange,
+    BookingStatus.Pending);
 
 Console.WriteLine(
     $"Создана бронь со статусом: {booking.Status}");
@@ -61,9 +64,18 @@ try
     Console.WriteLine(
         $"Бронь подтверждена. Новый статус: {booking.Status}");
 
+    Console.WriteLine(
+        "\nПробуем подтвердить бронь повторно...");
+
     landlord.ApproveBooking(booking);
+}
+catch (DomainException ex)
+{
+    Console.WriteLine(
+        $"Ошибка доменной логики: {ex.Message}");
 }
 catch (Exception ex)
 {
-    Console.WriteLine($"Ошибка: {ex.Message}");
+    Console.WriteLine(
+        $"Системная ошибка: {ex.Message}");
 }

@@ -6,7 +6,7 @@ namespace ApartmentsRentService.Domain.Entities;
 
 public class Tenant : Entity<Guid>
 {
-    public string Name { get; private set; }
+    public PersonName Name { get; private set; }
 
     public Email Email { get; private set; }
 
@@ -16,39 +16,29 @@ public class Tenant : Entity<Guid>
 
     protected Tenant(
         Guid id,
-        string name,
+        PersonName name,
         Email email)
         : base(id)
     {
         if (id == Guid.Empty)
             throw new InvalidIdException();
 
-        if (string.IsNullOrWhiteSpace(name))
-            throw new InvalidNameException(name);
-
-        Name = name.Trim();
+        Name = name
+            ?? throw new ArgumentNullException(nameof(name));
 
         Email = email
             ?? throw new ArgumentNullException(nameof(email));
     }
 
-    public Tenant(string name, Email email) : base(Guid.NewGuid())
+    public Tenant(PersonName name, Email email) : this(Guid.NewGuid(), name, email)
+    {}
+
+    public void ChangeName(PersonName name)
     {
-        if (string.IsNullOrWhiteSpace(name))
-            throw new InvalidNameException(name);
+        if (name == null)
+            throw new ArgumentNullException(nameof(name));
 
-        Name = name.Trim();
-
-        Email = email
-            ?? throw new ArgumentNullException(nameof(email));
-    }
-
-    public void ChangeName(string name)
-    {
-        if (string.IsNullOrWhiteSpace(name))
-            throw new InvalidNameException(name);
-
-        Name = name.Trim();
+        Name = name;
     }
 
     public void ChangeEmail(Email email)

@@ -1,9 +1,10 @@
-﻿namespace ApartmentsRentService.Domain.Exceptions;
+﻿using ApartmentsRentService.Domain.Entities;
 
-public class BookingCannotBeRejectedException : DomainException
+namespace ApartmentsRentService.Domain.Exceptions;
+
+public class BookingCannotBeRejectedException(Booking booking)
+    : DomainException(
+        $"Невозможно отклонить бронирование {booking.Id}, так как его статус {booking.Status}.")
 {
-    public BookingCannotBeRejectedException()
-        : base("Невозможно отклонить бронирование, так как его статус не Pending")
-    {
-    }
+    public Booking Booking => booking;
 }

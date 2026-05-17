@@ -7,7 +7,7 @@ namespace ApartmentsRentService.Domain.Entities;
 
 public class Landlord : Entity<Guid>
 {
-    public string Name { get; private set; }
+    public PersonName Name { get; private set; }
 
     public Email Email { get; private set; }
 
@@ -17,40 +17,27 @@ public class Landlord : Entity<Guid>
 
     protected Landlord(
         Guid id,
-        string name,
+        PersonName name,
         Email email)
         : base(id)
     {
         if (id == Guid.Empty)
             throw new InvalidIdException();
 
-        if (string.IsNullOrWhiteSpace(name))
-            throw new InvalidNameException(
-                "Имя арендодателя не может быть пустым.");
-
-        Name = name.Trim();
+        Name = name
+            ?? throw new ArgumentNullException(nameof(name));
 
         Email = email
             ?? throw new ArgumentNullException(nameof(email));
     }
 
-    public Landlord(string name, Email email) : base(Guid.NewGuid())
+    public Landlord(PersonName name, Email email) 
+        : this(Guid.NewGuid(), name, email) { }
+
+    public void ChangeName(PersonName name)
     {
-        if (string.IsNullOrWhiteSpace(name))
-            throw new InvalidNameException(name);
-
-        Name = name.Trim();
-
-        Email = email
-            ?? throw new ArgumentNullException(nameof(email));
-    }
-
-    public void ChangeName(string name)
-    {
-        if (string.IsNullOrWhiteSpace(name))
-            throw new InvalidNameException(name);
-
-        Name = name.Trim();
+        Name = name
+            ?? throw new ArgumentNullException(nameof(name));
     }
 
     public void ChangeEmail(Email email)
@@ -61,24 +48,51 @@ public class Landlord : Entity<Guid>
 
     public void ApproveBooking(Booking booking)
     {
-        if (booking == null)
+        if (booking is null)
             throw new ArgumentNullException(nameof(booking));
+
+        if (booking.Apartment.Landlord.Id != Id)
+            throw new LandlordApproveBookingException(
+                booking,
+                this);
+
+        if (booking.Status != BookingStatus.Pending)
+            throw new BookingCannotBeApprovedException(booking);
 
         booking.SetStatus(BookingStatus.Approved);
     }
 
     public void RejectBooking(Booking booking)
     {
-        if (booking == null)
+        if (booking is null)
             throw new ArgumentNullException(nameof(booking));
+
+        if (booking.Apartment.Landlord.Id != Id)
+            throw new LandlordRejectBookingException(booking, this);
+
+        if (booking.Status != BookingStatus.Pending)
+            throw new BookingCannotBeRejectedException(booking);
 
         booking.SetStatus(BookingStatus.Rejected);
     }
 
     public void CancelBooking(Booking booking)
     {
-        if (booking == null)
+        if (booking is null)
             throw new ArgumentNullException(nameof(booking));
+
+        if (booking.Apartment.Landlord.Id != Id)
+            throw new LandlordCancelBookingException(
+                booking,
+                this);
+
+        if (booking.Status == BookingStatus.Cancelled)
+            throw new BookingAlreadyCancelledException(
+                booking);
+
+        if (booking.Status == BookingStatus.Rejected)
+            throw new BookingCannotBeCancelledException(
+                booking);
 
         booking.SetStatus(BookingStatus.Cancelled);
     }

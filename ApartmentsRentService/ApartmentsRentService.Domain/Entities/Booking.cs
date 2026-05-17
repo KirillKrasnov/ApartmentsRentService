@@ -42,19 +42,9 @@ public class Booking : Entity<Guid>
         Status = status;
     }
 
-    public Booking(Apartment apartment, Tenant tenant, DateRange dateRange) : base(Guid.NewGuid())
-    {
-        Apartment = apartment
-            ?? throw new ArgumentNullException(nameof(apartment));
-
-        Tenant = tenant
-            ?? throw new ArgumentNullException(nameof(tenant));
-
-        DateRange = dateRange
-            ?? throw new ArgumentNullException(nameof(dateRange));
-
-        Status = BookingStatus.Pending;
-    }
+    public Booking(Apartment apartment, Tenant tenant, DateRange dateRange, BookingStatus status)
+            : this(Guid.NewGuid(), apartment, tenant, dateRange, status)
+    {}
 
     internal void SetStatus(BookingStatus status)
     {

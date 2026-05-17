@@ -1,9 +1,9 @@
-﻿namespace ApartmentsRentService.Domain.Exceptions;
+﻿using ApartmentsRentService.Domain.Entities;
 
-public class BookingCannotBeCancelledException : DomainException
+namespace ApartmentsRentService.Domain.Exceptions;
+
+public class BookingCannotBeCancelledException(Booking booking) : DomainException(
+        $"Невозможно отменить бронирование {booking.Id}, так как его статус {booking.Status}.")
 {
-    public BookingCannotBeCancelledException(string message)
-        : base(message)
-    {
-    }
+    public Booking Booking => booking;
 }

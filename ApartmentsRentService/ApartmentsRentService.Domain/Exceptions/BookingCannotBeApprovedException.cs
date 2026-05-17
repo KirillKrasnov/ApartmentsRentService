@@ -1,9 +1,9 @@
-﻿namespace ApartmentsRentService.Domain.Exceptions;
+﻿using ApartmentsRentService.Domain.Entities;
 
-public class BookingCannotBeApprovedException : DomainException
+namespace ApartmentsRentService.Domain.Exceptions;
+
+public class BookingCannotBeApprovedException(Booking booking) : DomainException(
+        $"Невозможно подтвердить бронирование {booking.Id}, так как его статус {booking.Status}.")
 {
-    public BookingCannotBeApprovedException()
-        : base("Невозможно подтвердить бронирование, так как его статус не Pending")
-    {
-    }
+    public Booking Booking => booking;
 }

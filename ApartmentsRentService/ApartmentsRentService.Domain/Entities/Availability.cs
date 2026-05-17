@@ -30,17 +30,18 @@ public class Availability : Entity<Guid>
             ?? throw new ArgumentNullException(nameof(dateRange));
     }
 
-    public Availability(Apartment apartment, DateRange dateRange) : base(Guid.NewGuid())
-    {
-        Apartment = apartment
-            ?? throw new ArgumentNullException(nameof(apartment));
+    public Availability(Apartment apartment, DateRange dateRange)
+        : this(Guid.NewGuid(), apartment, dateRange)
+    {}
 
-        DateRange = dateRange
-            ?? throw new ArgumentNullException(nameof(dateRange));
-    }
-
-    public void ChangeDateRange(DateRange dateRange)
+    public void ChangeDateRange(Landlord landlord, DateRange dateRange)
     {
+        if (landlord == null)
+            throw new ArgumentNullException(nameof(landlord));
+
+        if (landlord.Id != Apartment.Landlord.Id)
+            throw new LandlordEditAvailabilityException(this, landlord);
+
         DateRange = dateRange
             ?? throw new ArgumentNullException(nameof(dateRange));
     }
