@@ -8,4 +8,7 @@
   <Folder Name="/Infrastructure/">
     <Project Path="Infrastructure/ApartmentRentService.Infrastructure.EntityFramework/ApartmentsRentService.Infrastructure.EntityFramework.csproj" Id="25244093-4ba8-4a51-bf78-923f121af4e7" />
   </Folder>
+  <Folder Name="/Presentation/">
+    <Project Path="Presentation/ApartmentsRentService.WebHost/ApartmentsRentService.WebHost.csproj" Id="7f2996b1-df9a-4773-8fdd-44d59e747730" />
+  </Folder>
 </Solution>

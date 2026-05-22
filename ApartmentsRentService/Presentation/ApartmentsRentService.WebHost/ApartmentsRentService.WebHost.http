@@ -1,0 +1,6 @@
+@ApartmentsRentService.WebHost_HostAddress = http://localhost:5033
+
+GET {{ApartmentsRentService.WebHost_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
